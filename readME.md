@@ -5,11 +5,11 @@ Supports various types of mem caching evictions algorithm. Current support
 - LRU (Least recently used) [Uses doubly link list and map makes it ]
 - FIFO/LILO (First in First out/Last in Last out)
 
-####LRU
+#### LRU
 
 - Used Doubly LinkList and Map to get, set the data in O(1).
 
-####FIFO
+#### FIFO
 
 - Used Queue to perform all operations in O(1).
 
