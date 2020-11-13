@@ -2,7 +2,7 @@
 
 Supports various types of mem caching evictions algorithm. Current support
 
-- LRU (Least recently used) [Uses doubly link list and map makes it ]
+- LRU (Least recently used)
 - FIFO/LILO (First in First out/Last in Last out)
 
 #### LRU
