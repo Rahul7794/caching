@@ -5,20 +5,12 @@ import (
 )
 
 type LRU struct {
-	items    map[interface{}]*lrueviction.Element
-	capacity int
-	list     *lrueviction.List
+	items    map[interface{}]*lrueviction.Element // items stores values by key
+	capacity int                                  // capacity of cache
+	list     *lrueviction.List                    // list maintains more recently used in the end of DLL and least recently used in front of DLL
 }
 
-func NewLRU(capacity int) Operations {
-	storage := make(map[interface{}]*lrueviction.Element, capacity)
-	return &LRU{
-		items:    storage,
-		capacity: capacity,
-		list:     lrueviction.NewList(),
-	}
-}
-
+// Get retrieve value provided the key
 func (l *LRU) Get(key interface{}) interface{} {
 	var result interface{}
 	if node, found := l.items[key]; found {
@@ -29,6 +21,7 @@ func (l *LRU) Get(key interface{}) interface{} {
 	return result
 }
 
+// Set add value to cache to key
 func (l *LRU) Set(key, value interface{}) {
 	if node, found := l.items[key]; found {
 		l.list.Remove(node)
@@ -47,7 +40,18 @@ func (l *LRU) Set(key, value interface{}) {
 	}
 }
 
+// Flush clears the entire cache
 func (l *LRU) Flush() {
 	l.items = nil
 	l.list = nil
+}
+
+// NewLRU initializes LRU cache
+func NewLRU(capacity int) Operations {
+	storage := make(map[interface{}]*lrueviction.Element)
+	return &LRU{
+		items:    storage,
+		capacity: capacity,
+		list:     lrueviction.NewList(),
+	}
 }

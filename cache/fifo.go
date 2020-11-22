@@ -4,19 +4,11 @@ import (
 	"caching/fifoeviction"
 )
 
+// Get retrieve value provided the key
 type FIFO struct {
 	items    map[interface{}]interface{}
 	capacity int
 	queue    *fifoeviction.Queue
-}
-
-func NewFIFO(capacity int) Operations {
-	storage := make(map[interface{}]interface{}, capacity)
-	return &FIFO{
-		items:    storage,
-		capacity: capacity,
-		queue:    fifoeviction.NewQueue(),
-	}
 }
 
 func (f *FIFO) Get(key interface{}) interface{} {
@@ -27,6 +19,7 @@ func (f *FIFO) Get(key interface{}) interface{} {
 	return result
 }
 
+// Set add value to cache to key
 func (f *FIFO) Set(key, value interface{}) {
 	if _, found := f.items[key]; found {
 		f.items[key] = value
@@ -41,7 +34,18 @@ func (f *FIFO) Set(key, value interface{}) {
 	}
 }
 
+// Flush clears the entire cache
 func (f *FIFO) Flush() {
 	f.queue.Reset()
 	f.items = nil
+}
+
+// NewFIFO initializes FIFO cache
+func NewFIFO(capacity int) Operations {
+	storage := make(map[interface{}]interface{}, capacity)
+	return &FIFO{
+		items:    storage,
+		capacity: capacity,
+		queue:    fifoeviction.NewQueue(),
+	}
 }

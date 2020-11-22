@@ -1,15 +1,16 @@
 package lrueviction
 
 type Element struct {
-	Key        interface{}
-	Value      interface{}
-	Prev, Next *Element
+	Key        interface{} // Key of a Node
+	Value      interface{} // Value of a Node
+	Prev, Next *Element    // Next and Prev pointer of a node
 }
 
 type List struct {
-	Head, Tail *Element
+	Head, Tail *Element    // Head and Tail pointer of a doubly link list
 }
 
+// Add element to doubly link list
 func (l *List) Add(node *Element) {
 	headNext := l.Head.Next
 	node.Next = headNext
@@ -18,6 +19,7 @@ func (l *List) Add(node *Element) {
 	node.Prev = l.Head
 }
 
+// Remove element from doubly link list
 func (l *List) Remove(node *Element) {
 	next := node.Next
 	prev := node.Prev
@@ -25,6 +27,7 @@ func (l *List) Remove(node *Element) {
 	prev.Next = next
 }
 
+// NewList return new List
 func NewList() *List {
 	list := &List{
 		Head: &Element{},

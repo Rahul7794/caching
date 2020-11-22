@@ -1,8 +1,9 @@
 package cache
 
 // EvictionPolicy stores key as cache mechanism and its relevant object as value
-var EvictionPolicy = map[string]func(capacity int) Operations {
+var EvictionPolicy = map[string]func(capacity int) Operations{
 	"lru":  NewLRU,
+	"lfu":  NewLFU,
 	"fifo": NewFIFO,
 }
 

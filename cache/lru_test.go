@@ -30,20 +30,20 @@ func TestLRU(t *testing.T) {
 		lru := tt.setup()
 		fetch5 := lru.Get("5")
 		if !reflect.DeepEqual(fetch5.(string), "12") {
-			t.Errorf("Dequeue()=%v, wanted %v", fetch5.(string), "12")
+			t.Errorf("Get()=%v, wanted %v", fetch5.(string), "12")
 		}
 		fetch1 := lru.Get("1")
 		if !reflect.DeepEqual(fetch1.(string), "10") {
-			t.Errorf("Dequeue()=%v, wanted %v", fetch1.(string), "10")
+			t.Errorf("Get()=%v, wanted %v", fetch1.(string), "10")
 		}
 		fetch10 := lru.Get("10")
 		if !reflect.DeepEqual(fetch10, nil) {
-			t.Errorf("Dequeue()=%v, wanted %v", fetch10, nil)
+			t.Errorf("Get()=%v, wanted %v", fetch10, nil)
 		}
 		lru.Set("6", "14") // this pushed out key = 5 as LRU is full
 		fetch5Again := lru.Get("5")
 		if !reflect.DeepEqual(fetch5Again, nil) {
-			t.Errorf("Dequeue()=%v, wanted %v", fetch5Again, nil)
+			t.Errorf("Get()=%v, wanted %v", fetch5Again, nil)
 		}
 	}
 }
