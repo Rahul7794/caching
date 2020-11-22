@@ -4,13 +4,14 @@ import (
 	"caching/fifoeviction"
 )
 
-// Get retrieve value provided the key
+
 type FIFO struct {
 	items    map[interface{}]interface{}
 	capacity int
 	queue    *fifoeviction.Queue
 }
 
+// Get retrieve value provided the key
 func (f *FIFO) Get(key interface{}) interface{} {
 	var result interface{}
 	if value, found := f.items[key]; found {
